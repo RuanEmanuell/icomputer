@@ -11,33 +11,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daw.icomputer.model.Usuario;
-import com.daw.icomputer.repository.UsuarioRepository;
+import com.daw.icomputer.model.Venda;
+import com.daw.icomputer.repository.VendaRepository;
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/vendas")
+public class VendaController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private VendaRepository vendaRepository;
 
     @GetMapping
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
+    public List<Venda> listarVendas() {
+        return vendaRepository.findAll();
     }
 
     @PostMapping
-    public Usuario criarUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Venda criarVenda(@RequestBody Venda venda) {
+        return vendaRepository.save(venda);
     }
 
     @DeleteMapping
-    public void deletarUsuario(@RequestBody Integer idUsuario){
-        usuarioRepository.deleteById(idUsuario);
+    public void deletarVenda(@RequestBody Integer idVenda) {
+        vendaRepository.deleteById(idVenda);
     }
 
     @PutMapping
-    public void editarUsuario(@RequestBody Usuario usuario){
-        usuarioRepository.save(usuario);
+    public void editarVenda(@RequestBody Venda venda) {
+        vendaRepository.save(venda);
     }
 }

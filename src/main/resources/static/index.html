@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <h1 class="text-bold text-2xl text-red-500">Teste</h1>
+    <button hx-get="http://localhost:8080/modelos" hx-target="#result" hx-swap="outerHTML">Carregar</button>
+    <div id="result"></div>
+</body>
+</html>
