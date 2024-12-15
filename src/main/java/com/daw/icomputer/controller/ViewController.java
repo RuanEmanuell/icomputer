@@ -16,15 +16,15 @@ public class ViewController {
     @Autowired
     private ModeloPCRepository modeloPCRepository;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        return "index"; 
+    @GetMapping("/pages/modelos")
+    public String retornarPaginaModelos(Model model) {
+        return "modelos"; 
     }
 
-    @GetMapping("/modelos/html")
+    @GetMapping("/pages/fragment/lista-modelos")
     public String listarModelosHTML(Model model) {
         List<ModeloPC> modelos = modeloPCRepository.findAll();
         model.addAttribute("modelos", modelos);
-        return "fragment/modelos"; 
+        return "fragment/lista-modelos"; 
     }
 }

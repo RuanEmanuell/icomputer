@@ -1,0 +1,22 @@
+<table class="border-2 border-black">
+    <thead>
+        <tr>
+            <th class="border-2 border-black">ID</th>
+            <th class="border-2 border-black">Nome</th>
+            <th class="border-2 border-black">CPU</th>
+            <th class="border-2 border-black">RAM (GB)</th>
+            <th class="border-2 border-black">SSD (GB)</th>
+            <th class="border-2 border-black">Preço (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="modelo : ${modelos}" class="border-2 border-black">
+            <td th:text="${modelo.idModelo}" class="border-2 border-black text-center"></td>
+            <td th:text="${modelo.nome}" class="border-2 border-black text-center"></td>
+            <td th:text="${modelo.cpu}" class="border-2 border-black text-center"></td>
+            <td th:text="${modelo.ram}" class="border-2 border-black text-center"></td>
+            <td th:text="${modelo.ssd}" class="border-2 border-black text-center"></td>
+            <td th:text="${modelo.preco}" class="border-2 border-black text-center"></td>
+        </tr>
+    </tbody>
+</table>
