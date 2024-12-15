@@ -11,16 +11,16 @@
     <h1 class="text-3xl font-bold my-4">Sistema de Gerenciamento de Modelos de PC</h1>
 
     <h2 class="text-xl font-bold">Modelos disponíveis</h1>
-    <div id="modelos-container" class="my-2"></div>
+    <div id="modelos-container" class="my-2" hx-get="/pages/fragment/lista-modelos" hx-trigger="load" hx-swap="innerHTML"></div>
 
-    <div class="flex flex-row justify-center w-96 my-2">
-        <button id="addPcButton" onclick="abrirModal('add')" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold mx-10">
+    <div class="flex flex-col justify-center items-center w-80 my-2">
+        <button id="addPcButton" onclick="abrirModal('add')" class="border-2 bg-green-500 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Adicionar PC
         </button>
-        <button id="editPcButton" onclick="abrirModal('edit')" class="border-2 border-gray-500 bg-yellow-500 rounded p-2 text-white font-bold mx-10">
+        <button id="editPcButton" onclick="abrirModal('edit')" class="border-2 bg-yellow-500 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Editar PC
         </button>
-        <button id="deletePcButton" onclick="abrirModal('delete')" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold mx-10">
+        <button id="deletePcButton" onclick="abrirModal('delete')" class="border-2 bg-red-500 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Remover PC
         </button>
     </div>
@@ -34,10 +34,10 @@
             <input type="number" id="precoInput" placeholder="Preço (R$)" class="border p-2 rounded" required>
         </form>
         <div class="flex flex-row justify-center gap-4 mt-4">
-            <button onclick="adicionarModelo()" hx-get="/pages/fragment/lista-modelos" hx-target="#modelos-container" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold">
+            <button onclick="adicionarModelo()" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold">
                 Adicionar
             </button>
-            <button onclick="fecharModal('add')" hx-get="/pages/fragment/lista-modelos" hx-target="#modelos-container" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold">
+            <button onclick="fecharModal('add')" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold">
                 Cancelar
             </button>
         </div>
@@ -46,18 +46,39 @@
 
     <dialog id="deleteModal" class="bg-white w-96 h-auto flex-col p-4 rounded">
         <h2 class="text-xl font-bold mb-4">Remover Modelo</h2>
-        <form id="deleteForm" class="flex flex-col gap-2">
+        <form id="editForm" class="flex flex-col gap-2">
             <input type="text" id="idInput" placeholder="ID do Modelo" class="border p-2 rounded" required>
             <div class="flex flex-row justify-center w-96 my-2">
-                <button id="addPcButton" onclick="deletarModelo()" hx-get="/pages/fragment/lista-modelos" hx-target="#modelos-container" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold mx-10">
+                <button  onclick="deletarModelo()" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold mx-10">
                     Remover
                 </button>
-                <button id="deletePcButton" onclick="fecharModal('delete')" hx-get="/pages/fragment/lista-modelos" hx-target="#modelos-container" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold mx-10">
+                <button onclick="fecharModal('delete')" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold mx-10">
                     Cancelar
                 </button>
             </div>
         </form>
     </dialog>
+
+    <dialog id="editModal" class="bg-white w-96 h-auto flex-col p-4 rounded">
+        <h2 class="text-xl font-bold mb-4">Editar Modelo</h2>
+        <form id="editForm" class="flex flex-col gap-2">
+            <input type="text" id="editIdInput" placeholder="ID do Modelo" class="border p-2 rounded" required>
+            <input type="text" id="editNomeInput" placeholder="Nome do Modelo" class="border p-2 rounded">
+            <input type="text" id="editCpuInput" placeholder="Processador" class="border p-2 rounded">
+            <input type="number" id="editRamInput" placeholder="RAM (GB)" class="border p-2 rounded">
+            <input type="number" id="editSsdInput" placeholder="Armazenamento SSD (GB)" class="border p-2 rounded">
+            <input type="number" id="editPrecoInput" placeholder="Preço (R$)" class="border p-2 rounded">
+        </form>
+        <div class="flex flex-row justify-center gap-4 mt-4">
+            <button onclick="editarModelo()" class="border-2 border-gray-500 bg-green-500 rounded p-2 text-white font-bold">
+                Salvar Alterações
+            </button>
+            <button onclick="fecharModal('edit')" class="border-2 border-gray-500 bg-red-500 rounded p-2 text-white font-bold">
+                Cancelar
+            </button>
+        </div>
+    </dialog>
+    
     <script src="/js/modelos.js"></script>
 </body>
 </html>

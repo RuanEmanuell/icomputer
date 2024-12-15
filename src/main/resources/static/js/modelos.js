@@ -1,5 +1,3 @@
-window.addEventListener('load', () => carregarModelos())
-
 function abrirModal(option){
     const dialog = document.querySelector("#" + option + "Modal");
     dialog.showModal();
@@ -38,10 +36,9 @@ async function adicionarModelo() {
         console.error("Erro na requisição:", error);
     }
 
-    carregarModelos(); 
     fecharModal('add');
+    await carregarModelos();
 }
-
 
 async function deletarModelo() {
     const idModelo = document.querySelector("#idInput").value;
@@ -52,6 +49,32 @@ async function deletarModelo() {
     } catch (error) {
         console.error("Erro na requisição:", error);
     }
-    carregarModelos(); 
+
     fecharModal('delete');
+    await carregarModelos();
 };
+
+async function editarModelo() {
+    const idModelo = document.querySelector("#editIdInput").value; 
+    const data = {
+        nome: document.querySelector("#editNomeInput").value,
+        cpu: document.querySelector("#editCpuInput").value, 
+        ram: parseInt(document.querySelector("#editRamInput").value), 
+        ssd: parseInt(document.querySelector("#editSsdInput").value),
+        preco: parseFloat(document.querySelector("#editPrecoInput").value) 
+    };
+
+    try {
+        const response = await fetch(`http://localhost:8080/modelos/${idModelo}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+
+    fecharModal('edit');
+    await carregarModelos(); 
+}
