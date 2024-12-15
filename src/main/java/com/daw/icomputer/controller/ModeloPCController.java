@@ -2,8 +2,10 @@ package com.daw.icomputer.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,18 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.daw.icomputer.model.ModeloPC;
 import com.daw.icomputer.repository.ModeloPCRepository;
 
-@RestController
+@Controller
 @RequestMapping("/modelos")
 @CrossOrigin(origins = "*") 
 public class ModeloPCController {
 
     @Autowired
     private ModeloPCRepository modeloPCRepository;
-
-    @GetMapping
-    public List<ModeloPC> listarModelos() {
-        return modeloPCRepository.findAll();
-    }
 
     @PostMapping
     public ModeloPC criarModelo(@RequestBody ModeloPC modeloPC) {

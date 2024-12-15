@@ -21,11 +21,6 @@ public class VendaController {
     @Autowired
     private VendaRepository vendaRepository;
 
-    @GetMapping
-    public List<Venda> listarVendas() {
-        return vendaRepository.findAll();
-    }
-
     @PostMapping
     public Venda criarVenda(@RequestBody Venda venda) {
         return vendaRepository.save(venda);
