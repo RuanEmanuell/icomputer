@@ -22,7 +22,7 @@ public class ViewController {
     }
 
     @GetMapping("/modelos/html")
-    public String listarModelosL(Model model) {
+    public String listarModelosHTML(Model model) {
         List<ModeloPC> modelos = modeloPCRepository.findAll();
         model.addAttribute("modelos", modelos);
         return "fragment/modelos"; 
