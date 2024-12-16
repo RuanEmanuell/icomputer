@@ -1,0 +1,48 @@
+<table class="border-collapse border-2 border-white w-full text-sm">
+    <thead>
+        <tr class="bg-gray-800 text-white">
+            <th class="border-2 border-white px-4 py-2 text-center">ID Venda</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Nome do Usuário</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Modelo</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Data da Venda</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="venda : ${vendas}" class="hover:bg-gray-500 odd:bg-gray-700 text-white">
+            <td th:text="${venda.idVenda}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${venda.usuario.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${venda.modelo.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${#dates.format(venda.dataVenda, 'dd/MM/yyyy')}" class="border-2 border-white px-4 py-2 text-center"></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-white my-2">
+    <a th:if="${pageVendas.hasPrevious()}" class="font-bold cursor-pointer" onclick="carregarPaginaAnterior()">Anterior - </a>
+    
+    Página <span th:text="${pageVendas.number + 1}"></span> de <span th:text="${pageVendas.totalPages}"></span>
+    
+    <a th:if="${pageVendas.hasNext()}" class="font-bold cursor-pointer" onclick="carregarProximaPagina()"> - Próxima</a>
+
+    <div th:text="${nextPageUrl}" id="nextPageUrl" class="hidden"></div>
+    <div th:text="${previousPageUrl}" id="previousPageUrl" class="hidden"></div>
+</div>
+
+<script src="https://unpkg.com/htmx.org"></script>
+<script>
+    async function carregarProximaPagina() {
+        const url = document.getElementById("nextPageUrl").textContent;
+
+        htmx.ajax('GET', url, {
+            target: '#vendas-container'
+        });   
+    }
+
+    async function carregarPaginaAnterior() {
+        const url = document.getElementById("previousPageUrl").textContent;
+
+        htmx.ajax('GET', url, {
+            target: '#vendas-container'
+        });   
+    }
+</script>

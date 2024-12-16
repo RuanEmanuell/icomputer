@@ -1,5 +1,5 @@
 CREATE TABLE usuarios  (id_usuario SERIAL PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, endereco TEXT);
-CREATE TABLE vendas    (id_venda SERIAL PRIMARY KEY, id_usuario SERIAL, id_modelo SERIAL, dataVenda DATE, preco FLOAT);
+CREATE TABLE vendas    (id_venda SERIAL PRIMARY KEY, id_usuario SERIAL, id_modelo SERIAL, data_venda DATE);
 CREATE TABLE modelosPC (id_modelo SERIAL PRIMARY KEY, nome TEXT, cpu TEXT, ram INTEGER, ssd INTEGER, preco FLOAT);
 
 INSERT INTO usuarios (nome, email, senha, endereco) VALUES 
@@ -28,15 +28,15 @@ INSERT INTO modelosPC (nome, cpu, ram, ssd, preco) VALUES
 ('PC para Escritório', 'AMD Athlon', 4, 256, 1800.00),
 ('Servidor Básico', 'Intel Xeon', 128, 4096, 20000.00);
 
-INSERT INTO vendas (id_usuario, id_modelo, dataVenda, preco) VALUES 
-(1, 1, '2024-01-10', 2500.00),
-(2, 2, '2024-02-15', 4500.00),
-(3, 3, '2024-03-20', 8500.00),
-(4, 4, '2024-04-25', 15000.00),
-(5, 5, '2024-05-30', 2000.00),
-(6, 6, '2024-06-05', 4000.00),
-(7, 7, '2024-07-10', 8000.00),
-(8, 8, '2024-08-15', 1500.00),
-(9, 9, '2024-09-20', 3500.00),
-(10, 10, '2024-10-25', 1800.00),
-(11, 11, '2024-11-30', 20000.00);
+INSERT INTO vendas (id_usuario, id_modelo, data_venda) VALUES 
+(1, 1, '2024-01-10'),
+(2, 2, '2024-02-15'),
+(3, 3, '2024-03-20'),
+(4, 4, '2024-04-25'),
+(5, 5, '2024-05-30'),
+(6, 6, '2024-06-05'),
+(7, 7, '2024-07-10'),
+(8, 8, '2024-08-15'),
+(9, 9, '2024-09-20'),
+(10, 10, '2024-10-25'),
+(11, 11, '2024-11-30');

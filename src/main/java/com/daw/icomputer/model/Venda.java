@@ -24,8 +24,6 @@ public class Venda {
     @Column(name = "dataVenda")
     private Date dataVenda;
 
-    private Float preco;
-
     public Integer getIdVenda() {
         return idVenda;
     }
@@ -56,13 +54,5 @@ public class Venda {
 
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
-    }
-
-    public Float getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Float preco) {
-        this.preco = preco;
     }
 }

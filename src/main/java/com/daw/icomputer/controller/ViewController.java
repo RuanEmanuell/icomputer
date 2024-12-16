@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 
 import com.daw.icomputer.model.ModeloPC;
 import com.daw.icomputer.model.Usuario;
+import com.daw.icomputer.model.Venda;
 import com.daw.icomputer.service.ModeloPCService;
 import com.daw.icomputer.service.UsuarioService;
+import com.daw.icomputer.service.VendasService;
 
 @Controller
 public class ViewController {
@@ -22,6 +24,9 @@ public class ViewController {
 
     @Autowired
     private ModeloPCService modeloPCService;
+
+    @Autowired
+    private VendasService vendasService;
 
     @GetMapping("/")
     public String retornarPaginaInicial() {
@@ -68,6 +73,27 @@ public class ViewController {
         model.addAttribute("pageModelos", pageModelos);
         model.addAttribute("modelos", pageModelos.getContent());
         return "fragment/lista-modelos";
+    }
+
+    @GetMapping("/pages/vendas")
+    public String retornarPaginaVendas() {
+        return "vendas"; 
+    }
+
+    @GetMapping("/pages/fragment/lista-vendas")
+    public String listarVendasHTML(
+            @RequestParam(defaultValue = "0") int page, 
+            @RequestParam(defaultValue = "10") int size, 
+            Model model) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Venda> pageVendas = vendasService.listarVendasPaginadas(pageable);
+
+        model.addAttribute("previousPageUrl", "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() - 1) + "&size=" + pageVendas.getSize());
+        model.addAttribute("nextPageUrl", "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() + 1) + "&size=" + pageVendas.getSize());
+        model.addAttribute("pageVendas", pageVendas);
+        model.addAttribute("vendas", pageVendas.getContent());
+        return "fragment/lista-vendas";
     }
 
 }
