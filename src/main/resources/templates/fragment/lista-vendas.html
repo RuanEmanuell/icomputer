@@ -2,17 +2,19 @@
     <thead>
         <tr class="bg-gray-800 text-white">
             <th class="border-2 border-white px-4 py-2 text-center">ID Venda</th>
-            <th class="border-2 border-white px-4 py-2 text-center">Nome do Usuário</th>
-            <th class="border-2 border-white px-4 py-2 text-center">Modelo</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Nome do Usuário - ID do Usuário</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Modelo - ID do Modelo</th>
             <th class="border-2 border-white px-4 py-2 text-center">Data da Venda</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Preço da Venda (R$)</th>
         </tr>
     </thead>
     <tbody>
         <tr th:each="venda : ${vendas}" class="hover:bg-gray-500 odd:bg-gray-700 text-white">
             <td th:text="${venda.idVenda}" class="border-2 border-white px-4 py-2 text-center"></td>
-            <td th:text="${venda.usuario.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
-            <td th:text="${venda.modelo.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${venda.usuario.nome} + ' - ' + ${venda.usuario.idUsuario}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${venda.modelo.nome} + ' - ' + ${venda.modelo.idModelo}" class="border-2 border-white px-4 py-2 text-center"></td>            
             <td th:text="${#dates.format(venda.dataVenda, 'dd/MM/yyyy')}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${venda.modelo.preco}" class="border-2 border-white px-4 py-2 text-center"></td>
         </tr>
     </tbody>
 </table>
