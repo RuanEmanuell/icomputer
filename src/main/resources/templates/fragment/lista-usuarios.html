@@ -45,17 +45,4 @@
             target: '#usuarios-container'
         });   
     }
-
-    function abrirModal(option, idUsuario) {
-        const modalId = option + "Modal";
-        const modal = document.querySelector(`#${modalId}`);
-        const inputId = document.querySelector(`#${option}IdInput`);
-        inputId.value = idUsuario;
-        modal.showModal();
-    }
-
-    function fecharModal(option){
-        const dialog = document.querySelector("#" + option + "Modal");
-        dialog.close();
-    }
 </script>
