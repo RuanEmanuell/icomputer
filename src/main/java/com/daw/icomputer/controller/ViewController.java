@@ -18,25 +18,30 @@ public class ViewController {
     @Autowired
     private ModeloPCRepository modeloPCRepository;
 
+    @GetMapping("/")
+    public String retornarPaginaInicial() {
+        return "index"; 
+    }
+
     @GetMapping("/pages/modelos")
-    public String retornarPaginaModelos(Model model) {
+    public String retornarPaginaModelos() {
         return "modelos"; 
     }
 
-@GetMapping("/pages/fragment/lista-modelos")
-public String listarModelosHTML(
-        @RequestParam(defaultValue = "0") int page, 
-        @RequestParam(defaultValue = "10") int size, 
-        Model model) {
-    Pageable pageable = PageRequest.of(page, size);
+    @GetMapping("/pages/fragment/lista-modelos")
+    public String listarModelosHTML(
+            @RequestParam(defaultValue = "0") int page, 
+            @RequestParam(defaultValue = "10") int size, 
+            Model model) {
+        Pageable pageable = PageRequest.of(page, size);
 
-    Page<ModeloPC> pageModelos = modeloPCRepository.findAll(pageable);
+        Page<ModeloPC> pageModelos = modeloPCRepository.findAll(pageable);
 
-    model.addAttribute("previousPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() - 1) + "&size=" + pageModelos.getSize());
-    model.addAttribute("nextPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() + 1) + "&size=" + pageModelos.getSize());
-    model.addAttribute("pageModelos", pageModelos);
-    model.addAttribute("modelos", pageModelos.getContent());
-    return "fragment/lista-modelos";
-}
+        model.addAttribute("previousPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() - 1) + "&size=" + pageModelos.getSize());
+        model.addAttribute("nextPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() + 1) + "&size=" + pageModelos.getSize());
+        model.addAttribute("pageModelos", pageModelos);
+        model.addAttribute("modelos", pageModelos.getContent());
+        return "fragment/lista-modelos";
+    }
 
 }

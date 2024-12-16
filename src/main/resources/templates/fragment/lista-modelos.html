@@ -1,32 +1,33 @@
-<table class="border-collapse border border-gray-500 w-full text-sm">
+<table class="border-collapse border-2 border-white w-full text-sm">
     <thead>
-        <tr class="bg-gray-200">
-            <th class="border border-gray-500 px-4 py-2 text-center">ID</th>
-            <th class="border border-gray-500 px-4 py-2 text-center">Nome</th>
-            <th class="border border-gray-500 px-4 py-2 text-center">CPU</th>
-            <th class="border border-gray-500 px-4 py-2 text-center">RAM (GB)</th>
-            <th class="border border-gray-500 px-4 py-2 text-center">SSD (GB)</th>
-            <th class="border border-gray-500 px-4 py-2 text-center">Preço (R$)</th>
+        <tr class="bg-gray-800 text-white">
+            <th class="border-2 border-white px-4 py-2 text-center">ID</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Nome</th>
+            <th class="border-2 border-white px-4 py-2 text-center">CPU</th>
+            <th class="border-2 border-white px-4 py-2 text-center">RAM (GB)</th>
+            <th class="border-2 border-white px-4 py-2 text-center">SSD (GB)</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Preço (R$)</th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="modelo : ${modelos}" class="hover:bg-gray-100">
-            <td th:text="${modelo.idModelo}" class="border border-gray-500 px-4 py-2 text-center"></td>
-            <td th:text="${modelo.nome}" class="border border-gray-500 px-4 py-2 text-center"></td>
-            <td th:text="${modelo.cpu}" class="border border-gray-500 px-4 py-2 text-center"></td>
-            <td th:text="${modelo.ram}" class="border border-gray-500 px-4 py-2 text-center"></td>
-            <td th:text="${modelo.ssd}" class="border border-gray-500 px-4 py-2 text-center"></td>
-            <td th:text="${modelo.preco}" class="border border-gray-500 px-4 py-2 text-center"></td>
+        <tr th:each="modelo : ${modelos}" class="hover:bg-gray-500 odd:bg-gray-700 text-white">
+            <td th:text="${modelo.idModelo}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${modelo.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${modelo.cpu}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${modelo.ram}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${modelo.ssd}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${modelo.preco}" class="border-2 border-white px-4 py-2 text-center"></td>
         </tr>
     </tbody>
+    
 </table>
 
-<div>
-    <a th:if="${pageModelos.hasPrevious()}" class="font-bold" onclick="carregarPaginaAnterior()">Anterior - </a>
+<div class="text-white my-2">
+    <a th:if="${pageModelos.hasPrevious()}" class="font-bold cursor-pointer" onclick="carregarPaginaAnterior()">Anterior - </a>
     
     Página <span th:text="${pageModelos.number + 1}"></span> de <span th:text="${pageModelos.totalPages}"></span>
     
-    <a th:if="${pageModelos.hasNext()}" class="font-bold" onclick="carregarProximaPagina()"> - Próxima</a>
+    <a th:if="${pageModelos.hasNext()}" class="font-bold cursor-pointer" onclick="carregarProximaPagina()"> - Próxima</a>
 
     <div th:text="${nextPageUrl}" id="nextPageUrl" class="hidden"></div>
     <div th:text="${previousPageUrl}" id="previousPageUrl" class="hidden"></div>
