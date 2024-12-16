@@ -9,23 +9,22 @@ function fecharModal(option){
     dialog.close();
 }
 
-async function carregarModelos(){
-    htmx.ajax('GET', 'http://localhost:8080/pages/fragment/lista-modelos', {
-        target: '#modelos-container'
+async function carregarUsuarios(){
+    htmx.ajax('GET', 'http://localhost:8080/pages/fragment/lista-usuarios', {
+        target: '#usuarios-container'
     });
 }
 
-async function adicionarModelo() {
+async function adicionarUsuario() {
     const data = {
         nome: document.querySelector("#nomeInput").value,
-        cpu: document.querySelector("#cpuInput").value,
-        ram: parseInt(document.querySelector("#ramInput").value),
-        ssd: parseInt(document.querySelector("#ssdInput").value),
-        preco: parseFloat(document.querySelector("#precoInput").value)
+        email: document.querySelector("#emailInput").value,
+        senha: document.querySelector("#senhaInput").value,
+        endereco: document.querySelector("#enderecoInput").value
     };
 
     try {
-        const response = await fetch("http://localhost:8080/modelos", {
+        const response = await fetch("http://localhost:8080/usuarios", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -38,35 +37,34 @@ async function adicionarModelo() {
     }
 
     fecharModal('add');
-    await carregarModelos();
+    await carregarUsuarios();
 }
 
-async function deletarModelo() {
-    const idModelo = document.querySelector("#idInput").value;
+async function deletarUsuario() {
+    const idUsuario = document.querySelector("#deleteIdInput").value;
     try {
-        const response = await fetch(`http://localhost:8080/modelos/${idModelo}`, {
+        const response = await fetch(`http://localhost:8080/usuarios/${idUsuario}`, {
             method: "DELETE"
         });
+
     } catch (error) {
         console.error("Erro na requisição:", error);
     }
 
     fecharModal('delete');
-    await carregarModelos();
-};
+    await carregarUsuarios();
+}
 
-async function editarModelo() {
-    const idModelo = document.querySelector("#editIdInput").value; 
+async function editarUsuario() {
+    const idUsuario = document.querySelector("#editIdInput").value;
     const data = {
         nome: document.querySelector("#editNomeInput").value,
-        cpu: document.querySelector("#editCpuInput").value, 
-        ram: parseInt(document.querySelector("#editRamInput").value), 
-        ssd: parseInt(document.querySelector("#editSsdInput").value),
-        preco: parseFloat(document.querySelector("#editPrecoInput").value) 
+        email: document.querySelector("#editEmailInput").value,
+        endereco: document.querySelector("#editEnderecoInput").value
     };
 
     try {
-        const response = await fetch(`http://localhost:8080/modelos/${idModelo}`, {
+        const response = await fetch(`http://localhost:8080/usuarios/${idUsuario}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -77,7 +75,7 @@ async function editarModelo() {
     }
 
     fecharModal('edit');
-    await carregarModelos(); 
+    await carregarUsuarios();
 }
 
 async function zerarInputs(){

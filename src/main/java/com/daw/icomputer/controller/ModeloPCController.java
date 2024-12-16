@@ -1,6 +1,5 @@
 package com.daw.icomputer.controller;
 
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,41 +14,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.daw.icomputer.model.ModeloPC;
-import com.daw.icomputer.repository.ModeloPCRepository;
+import com.daw.icomputer.service.ModeloPCService;
 
 @Controller
 @RequestMapping("/modelos")
-@CrossOrigin(origins = "*") 
+@CrossOrigin(origins = "*")
 public class ModeloPCController {
 
     @Autowired
-    private ModeloPCRepository modeloPCRepository;
+    private ModeloPCService modeloPCService;
 
     @GetMapping("/{idModelo}")
     public Optional<ModeloPC> buscarModeloPorId(@PathVariable Integer idModelo) {
-        return modeloPCRepository.findById(idModelo);
+        return modeloPCService.buscarModeloPorId(idModelo);
     }
 
     @PostMapping
     public ModeloPC criarModelo(@RequestBody ModeloPC modeloPC) {
-        return modeloPCRepository.save(modeloPC);
+        return modeloPCService.criarModelo(modeloPC);
     }
 
     @DeleteMapping("/{idModelo}")
     public void deletarModelo(@PathVariable Integer idModelo) {
-        modeloPCRepository.deleteById(idModelo);
+        modeloPCService.deletarModelo(idModelo);
     }
 
     @PutMapping("/{idModelo}")
     public ModeloPC editarModelo(@PathVariable Integer idModelo, @RequestBody ModeloPC modeloPC) {
-        return modeloPCRepository.findById(idModelo).map(modeloExistente -> {
-            modeloExistente.setNome(modeloPC.getNome());
-            modeloExistente.setCpu(modeloPC.getCpu());
-            modeloExistente.setRam(modeloPC.getRam());
-            modeloExistente.setSsd(modeloPC.getSsd());
-            modeloExistente.setPreco(modeloPC.getPreco());
-    
-            return modeloPCRepository.save(modeloExistente);
-        }).orElseThrow(() -> new RuntimeException("Modelo com ID " + idModelo + " não encontrado"));
+        return modeloPCService.editarModelo(idModelo, modeloPC);
     }
 }

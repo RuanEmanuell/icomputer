@@ -1,38 +1,46 @@
 package com.daw.icomputer.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.icomputer.model.Usuario;
-import com.daw.icomputer.repository.UsuarioRepository;
+import com.daw.icomputer.service.UsuarioService;
 
-@RestController
+@Controller
 @RequestMapping("/usuarios")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
+
+    @GetMapping("/{idUsuario}")
+    public Optional<Usuario> buscarUsuarioPorId(@PathVariable Integer idUsuario) {
+        return usuarioService.buscarUsuarioPorId(idUsuario);
+    }
 
     @PostMapping
     public Usuario criarUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        return usuarioService.criarUsuario(usuario);
     }
 
-    @DeleteMapping
-    public void deletarUsuario(@RequestBody Integer idUsuario){
-        usuarioRepository.deleteById(idUsuario);
+    @DeleteMapping("/{idUsuario}")
+    public void deletarUsuario(@PathVariable Integer idUsuario) {
+        usuarioService.deletarUsuario(idUsuario);
     }
 
-    @PutMapping
-    public void editarUsuario(@RequestBody Usuario usuario){
-        usuarioRepository.save(usuario);
+    @PutMapping("/{idUsuario}")
+    public Usuario editarUsuario(@PathVariable Integer idUsuario, @RequestBody Usuario usuario) {
+        return usuarioService.editarUsuario(idUsuario, usuario);
     }
 }

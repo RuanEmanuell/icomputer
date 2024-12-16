@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carregar Modelos</title>
+    <title>Computadores</title>
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -12,6 +12,7 @@
         <a href="/pages/usuarios" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">👨‍💼 Usuários</a>
         <a href="/pages/modelos" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">💻 Computadores</a>
         <a href="/pages/vendas" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🏪 Vendas</a>
+        <a href="/" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🚪 Sair</a>
     </nav>
     <h1 class="text-3xl font-bold my-4 text-white">Sistema de Gerenciamento de Modelos de PC 💻</h1>
 
@@ -64,7 +65,7 @@
         </form>
     </dialog>
 
-    <dialog id="editModal" class="w-96 h-auto flex-col p-4 rounded">
+    <dialog id="editModal" class="w-96 h-auto flex-col p-4 rounded bg-gray-800">
         <h2 class="text-xl font-bold mb-4 text-white">Editar Modelo</h2>
         <form id="editForm" class="flex flex-col gap-2">
             <input type="text" id="editIdInput" placeholder="ID do Modelo" class="border p-2 rounded" required>
