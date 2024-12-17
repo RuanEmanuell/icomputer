@@ -87,3 +87,30 @@ async function zerarInputs(){
         input.value = "";
     })
 }
+
+function verificarUsuarioIsAdmin() {
+    const usuarioLocal = localStorage.getItem("login");
+
+    if (usuarioLocal != null) {
+        const usuario = JSON.parse(usuarioLocal);
+
+        const isAdmin = usuario.permissaoAdmin === 's';
+
+        if(!isAdmin) {
+            document.querySelector("#buttonsDiv").style.display = "none";
+        }
+
+    } else {
+        window.location.href = "/pages/login";
+    }
+}
+
+
+function logoutUsuario(){
+    localStorage.removeItem("login");
+    window.location.href = "/pages/login";
+}
+
+if (window.location.pathname !== "/pages/login" && window.location.pathname !== "/pages/cadastro") {
+    verificarUsuarioIsAdmin();
+}

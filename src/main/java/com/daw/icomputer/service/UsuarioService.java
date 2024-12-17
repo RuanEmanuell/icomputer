@@ -25,6 +25,10 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
+    public Optional<Usuario> buscarUsuarioPorEmail(String emailUsuario) {
+        return usuarioRepository.findByEmail(emailUsuario);
+    }
+
     public Usuario criarUsuario(Usuario usuario) {
         BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
         usuario.setSenha(criptografar.encode(usuario.getSenha()));

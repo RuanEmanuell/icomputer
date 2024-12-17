@@ -64,4 +64,14 @@ public class Usuario {
     public void setPermissaoAdmin(String permissaoAdmin) {
         this.permissaoAdmin = permissaoAdmin;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+            "id=" + idUsuario +
+            ", nome='" + nome + '\'' +
+            ", email='" + email + '\'' +
+            '}';
+    }
+
 }

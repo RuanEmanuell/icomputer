@@ -99,8 +99,8 @@ async function login() {
         });
 
         if (response.ok) {
-            registrarLoginLocalmente("Teste");
-            alert("Login realizado com sucesso");
+            alert("Login realizado com sucesso!");
+            await registrarLoginLocalmente(email);
             window.location.href = "/pages/home";
         } else {
             alert("Erro ao fazer login! Usuário não existente.");
@@ -134,8 +134,8 @@ async function fazerCadastro() {
             });
 
             if (response.ok) {
-                registrarLoginLocalmente("Teste");
                 alert("Usuário criado com sucesso!");
+                await registrarLoginLocalmente(email);
                 window.location.href = "/pages/home";
             } else {
                 alert("Erro ao criar usuário! Email já em uso!");
@@ -150,6 +150,41 @@ async function fazerCadastro() {
 
 }
 
-async function registrarLoginLocalmente(usuario){
-    localStorage.setItem("login", JSON.stringify(usuario));
+async function registrarLoginLocalmente(email){
+    try {
+        const response = await fetch(`http://localhost:8080/usuarios/email/${email}`);
+        const data = await response.json();
+        if(data != null){
+            localStorage.setItem("login", JSON.stringify(data));   
+        }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+}
+
+function verificarUsuarioIsAdmin() {
+    const usuarioLocal = localStorage.getItem("login");
+
+    if (usuarioLocal != null) {
+        const usuario = JSON.parse(usuarioLocal);
+
+        const isAdmin = usuario.permissaoAdmin === 's';
+
+        if (!isAdmin) {
+            alert("Apenas administradores podem acessar essa página!");
+            window.location.href = "/pages/home";
+        } 
+        
+    } else {
+        window.location.href = "/pages/login";
+    }
+}
+
+function logoutUsuario(){
+    localStorage.removeItem("login");
+    window.location.href = "/pages/login";
+}
+
+if (window.location.pathname !== "/pages/login" && window.location.pathname !== "/pages/cadastro") {
+    verificarUsuarioIsAdmin();
 }

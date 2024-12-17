@@ -21,7 +21,9 @@
                 Computadores</a>
             <a href="/pages/vendas"
                 class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🏪 Vendas</a>
-            <a href="/" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🚪
+            <a href="/pages/login"
+                class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all"
+                onclick="logoutUsuario()">🚪
                 Sair</a>
         </div>
     </nav>
@@ -32,7 +34,7 @@
         <div id="modelos-container" class="my-2" hx-get="/pages/fragment/lista-modelos" hx-trigger="load"
             hx-swap="innerHTML"></div>
 
-        <div class="flex flex-col justify-center items-center w-80 my-2">
+        <div class="flex flex-col justify-center items-center w-80 my-2" id="buttonsDiv">
             <button id="addPcButton" onclick="abrirModal('add')"
                 class="border-2 bg-green-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
                 Adicionar PC

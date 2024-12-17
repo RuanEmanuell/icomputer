@@ -81,3 +81,30 @@ async function zerarInputs() {
         input.value = "";
     });
 }
+
+function verificarUsuarioIsAdmin() {
+    const usuarioLocal = localStorage.getItem("login");
+
+    if (usuarioLocal != null) {
+        const usuario = JSON.parse(usuarioLocal);
+
+        const isAdmin = usuario.permissaoAdmin === 's';
+
+        if (!isAdmin) {
+            alert("Apenas administradores podem acessar essa página!");
+            window.location.href = "/pages/home";
+        } 
+        
+    } else {
+        window.location.href = "/pages/login";
+    }
+}
+
+function logoutUsuario(){
+    localStorage.removeItem("login");
+    window.location.href = "/pages/login";
+}
+
+if (window.location.pathname !== "/pages/login" && window.location.pathname !== "/pages/cadastro") {
+    verificarUsuarioIsAdmin();
+}

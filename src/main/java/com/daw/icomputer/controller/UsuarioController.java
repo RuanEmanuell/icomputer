@@ -31,6 +31,14 @@ public class UsuarioController {
         return usuarioService.buscarUsuarioPorId(idUsuario);
     }
 
+    @GetMapping("/email/{emailUsuario}")
+    public ResponseEntity<Usuario> buscarUsuarioPorEmail(@PathVariable String emailUsuario) {
+        return usuarioService.buscarUsuarioPorEmail(emailUsuario)
+                .map(ResponseEntity::ok) 
+                .orElseGet(() -> ResponseEntity.notFound().build()); 
+    }
+    
+
     @PostMapping
     public Usuario criarUsuario(@RequestBody Usuario usuario) {
         if (usuarioService.checkEmailUsuarioExiste(usuario.getEmail()) == true) {
