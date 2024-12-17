@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen bg-[#2b3137]">
+    <img src="/images/logo.png" class="w-32 h-32 m-x-auto my-2">
+    <main class="bg-gray-800 p-8 rounded shadow-md text-white w-80">
+        <h1 class="text-2xl font-bold mb-6 text-center">Cadastrar Usuário</h1>
+        <form class="flex flex-col gap-4 w-full">
+            <div>
+                <input type="text" name="nome" placeholder="Nome" class="border p-2 w-full rounded text-black" id="nomeInput" required>
+            </div>
+            <div>
+                <input type="email" name="email" placeholder="Email" class="border p-2 w-full rounded text-black" id="emailInput" required>
+            </div>
+            <div>
+                <input type="password" name="senha" placeholder="Senha" class="border p-2 w-full rounded text-black" id="senhaInput" required>
+            </div>
+            <div>
+                <input type="text" name="endereco" placeholder="Endereço" class="border p-2 w-full rounded text-black" id="enderecoInput" required>
+            </div>
+
+            <button type="button" onclick="fazerCadastro()"
+                class="bg-green-700 hover:bg-green-800 transition-colors text-white font-bold p-2 rounded w-full">
+                Entrar
+            </button>
+        </form>
+
+        <p class="text-sm mt-4 text-center">
+            Já tem uma conta?
+            <a href="/pages/login" class="text-blue-500 hover:underline">Voltar para Login</a>
+        </p>
+    </main>
+    <script src="/js/usuarios.js"></script>
+</body>
+</html>

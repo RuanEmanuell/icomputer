@@ -5,6 +5,7 @@
             <th class="border-2 border-white px-4 py-2 text-center">Nome</th>
             <th class="border-2 border-white px-4 py-2 text-center">Email</th>
             <th class="border-2 border-white px-4 py-2 text-center">Endereço</th>
+            <th class="border-2 border-white px-4 py-2 text-center">Permissão Admin.</th>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
             <td th:text="${usuario.nome}" class="border-2 border-white px-4 py-2 text-center"></td>
             <td th:text="${usuario.email}" class="border-2 border-white px-4 py-2 text-center"></td>
             <td th:text="${usuario.endereco}" class="border-2 border-white px-4 py-2 text-center"></td>
+            <td th:text="${usuario.permissaoAdmin} == 's' ? 'Sim' : 'Não'" class="border-2 border-white px-4 py-2 text-center"></td>
         </tr>
     </tbody>
 </table>

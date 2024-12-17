@@ -1,77 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="flex flex-col items-center justify-center bg-[#2b3137]">
-    <nav class="border-b-2 border-white text-white flex items-center justify-center h-18 w-full bg-gray-600">
-        <a href="/pages/usuarios"
-            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">👨‍💼 Usuários</a>
-        <a href="/pages/modelos"
-            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">💻 Computadores</a>
-        <a href="/pages/vendas"
-            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🏪 Vendas</a>
-        <a href="/pages/login" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🔐
-            Login</a>
-        <a href="/" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🚪 Sair</a>
-    </nav>
-
-    <main class="flex flex-col items-center mt-10 bg-gray-800 p-8 rounded shadow-md text-white w-80">
-        <h1 class="text-2xl font-bold mb-6">Login</h1>
+<body class="flex flex-col items-center justify-center min-h-screen bg-[#2b3137]">
+    <img src="/images/logo.png" class="w-32 h-32 m-x-auto my-2">
+    <main class="bg-gray-800 p-8 rounded shadow-md text-white w-80">
+        <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
         <form action="/login" method="POST" class="flex flex-col gap-4 w-full">
             <div>
                 <label for="email" class="block text-sm font-medium mb-1">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="Digite seu e-mail"
+                <input type="email" id="emailInput" name="email" placeholder="Digite seu e-mail"
                     class="border p-2 w-full rounded text-black" required>
             </div>
             <div>
                 <label for="password" class="block text-sm font-medium mb-1">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Digite sua senha"
+                <input type="password" id="senhaInput" name="password" placeholder="Digite sua senha"
                     class="border p-2 w-full rounded text-black" required>
             </div>
             <button type="button" onclick="login()"
                 class="bg-green-700 hover:bg-green-800 transition-colors text-white font-bold p-2 rounded w-full">
                 Entrar
             </button>
-
-
         </form>
-        <p class="text-sm mt-4">
+
+        <p class="text-sm mt-4 text-center">
             Não tem uma conta?
-            <button onclick="abrirModal('add')" class="text-blue-500 hover:underline">
-                Cadastre-se aqui
-            </button>
+            <a href="/pages/cadastro" class="text-blue-500 hover:underline">Cadastre-se aqui</a>
         </p>
     </main>
-
-    <!-- Dialog para Adicionar Usuário -->
-    <dialog id="addModal" class="w-96 h-auto flex-col p-4 rounded bg-gray-800">
-        <h2 class="text-xl font-bold mb-4 text-white">Cadastrar Usuário</h2>
-        <form id="addForm" class="flex flex-col gap-2">
-            <input type="text" id="nomeInput" placeholder="Nome" class="border p-2 rounded" required>
-            <input type="email" id="emailInput" placeholder="Email" class="border p-2 rounded" required>
-            <input type="password" id="senhaInput" placeholder="Senha" class="border p-2 rounded" required>
-            <input type="text" id="enderecoInput" placeholder="Endereço" class="border p-2 rounded" required>
-        </form>
-        <div class="flex flex-row justify-center gap-4 mt-4">
-            <button onclick="adicionarUsuario()"
-                class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold">
-                Cadastrar
-            </button>
-            <button onclick="fecharModal('add')"
-                class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold">
-                Cancelar
-            </button>
-        </div>
-    </dialog>
-
     <script src="/js/usuarios.js"></script>
 </body>
-
 </html>

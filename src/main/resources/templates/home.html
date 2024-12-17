@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center bg-[#2b3137] w-screen h-screen">
+    <div class="w-2/3 h-full flex flex-col items-center justify-center">
+        <img src="/images/logo.png" class="w-48 h-48 my-2">
+
+        <h1 class="text-center font-bold text-white text-5xl my-4">O que você quer gerenciar hoje?</h1>
+        <a href="/pages/usuarios" class="font-bold my-2 w-80 h-24 text-2xl text-center flex justify-center items-center bg-white text-[#2b3137] hover:bg-gray-300 rounded transition-all">USUÁRIOS 👨‍💼</a>
+        <a href="/pages/modelos" class="font-bold my-2 w-80 h-24 text-2xl text-center flex justify-center items-center bg-white text-[#2b3137] hover:bg-gray-300 rounded transition-all">COMPUTADORES 💻</a>
+        <a href="/pages/vendas" class="font-bold my-2 w-80 h-24 text-2xl text-center flex justify-center items-center bg-white text-[#2b3137] hover:bg-gray-300 rounded transition-all">VENDAS 💻</a>
+    </div>
+</body>
+
+</html>

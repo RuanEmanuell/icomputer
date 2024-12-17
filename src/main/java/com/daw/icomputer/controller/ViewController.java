@@ -29,9 +29,9 @@ public class ViewController {
     @Autowired
     private VendasService vendasService;
 
-    @GetMapping("/pages/index")
-    public String retornarPaginaInicial() {
-        return "index";
+    @GetMapping("/")
+    public String retornarPaginaLogin() {
+        return "login";
     }
 
     @GetMapping("/pages/usuarios")
@@ -39,9 +39,19 @@ public class ViewController {
         return "usuarios";
     }
 
+    @GetMapping("/pages/home")
+    public String retornarPaginaHome() {
+        return "home";
+    }
+
     @GetMapping("/pages/login")
-    public String retornarPaginaLogin() {
+    public String retornarPaginaLogin2() {
         return "login";
+    }
+
+    @GetMapping("/pages/cadastro")
+    public String retornarPaginaCadastro() {
+        return "cadastro";
     }
 
     @GetMapping("/pages/fragment/lista-usuarios")

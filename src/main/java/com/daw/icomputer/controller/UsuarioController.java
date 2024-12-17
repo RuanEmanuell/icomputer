@@ -33,6 +33,9 @@ public class UsuarioController {
 
     @PostMapping
     public Usuario criarUsuario(@RequestBody Usuario usuario) {
+        if (usuarioService.checkEmailUsuarioExiste(usuario.getEmail()) == true) {
+            return null;
+        }
         return usuarioService.criarUsuario(usuario);
     }
 
@@ -56,6 +59,6 @@ public class UsuarioController {
         } else {
             return ResponseEntity.status(401).body(Map.of("success", false, "message", "E-mail ou senha inválidos"));
         }
-    }
 
+    }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.daw.icomputer.model.Usuario;
 import com.daw.icomputer.repository.UsuarioRepository;
@@ -21,6 +22,8 @@ public class UsuarioService {
     }
 
     public Usuario criarUsuario(Usuario usuario) {
+        BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
+        usuario.setSenha(criptografar.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 
@@ -36,14 +39,20 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario).map(usuarioExistente -> {
             usuarioExistente.setNome(usuario.getNome());
             usuarioExistente.setEmail(usuario.getEmail());
-            usuarioExistente.setSenha(usuario.getSenha());
             usuarioExistente.setEndereco(usuario.getEndereco());
+            usuarioExistente.setPermissaoAdmin(usuario.getPermissaoAdmin());
             return usuarioRepository.save(usuarioExistente);
         }).orElseThrow(() -> new RuntimeException("Usuário com ID " + idUsuario + " não encontrado"));
     }
 
     public Page<Usuario> listarUsuariosPaginados(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
+    }
+
+    public boolean checkEmailUsuarioExiste(String email){
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+        return usuarioOpt.isPresent();
     }
 
     public boolean autenticarUsuario(String email, String senha) {
@@ -55,6 +64,8 @@ public class UsuarioService {
 
         Usuario usuario = usuarioOpt.get();
 
-        return usuario.getSenha().equals(senha);
+        BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
+
+        return criptografar.matches(senha, usuario.getSenha());
     }
 }

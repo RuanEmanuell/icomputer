@@ -15,6 +15,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String endereco;
+    private String permissaoAdmin;
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -54,5 +55,13 @@ public class Usuario {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getPermissaoAdmin() {
+        return permissaoAdmin;
+    }
+
+    public void setPermissaoAdmin(String permissaoAdmin) {
+        this.permissaoAdmin = permissaoAdmin;
     }
 }

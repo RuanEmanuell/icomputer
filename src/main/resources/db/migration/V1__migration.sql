@@ -1,19 +1,9 @@
-CREATE TABLE usuarios  (id_usuario SERIAL PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, endereco TEXT);
+CREATE TABLE usuarios  (id_usuario SERIAL PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, endereco TEXT, permissao_admin TEXT DEFAULT 'n');
 CREATE TABLE vendas    (id_venda SERIAL PRIMARY KEY, id_usuario SERIAL, id_modelo SERIAL, data_venda DATE);
 CREATE TABLE modelosPC (id_modelo SERIAL PRIMARY KEY, nome TEXT, cpu TEXT, ram INTEGER, ssd INTEGER, preco FLOAT);
 
-INSERT INTO usuarios (nome, email, senha, endereco) VALUES 
-('João Silva', 'joao.silva@example.com', 'senha123', 'Rua A, 123'),
-('Maria Oliveira', 'maria.oliveira@example.com', 'senha123', 'Rua B, 456'),
-('Carlos Pereira', 'carlos.pereira@example.com', 'senha123', 'Rua C, 789'),
-('Ana Souza', 'ana.souza@example.com', 'senha123', 'Rua D, 101'),
-('Pedro Gomes', 'pedro.gomes@example.com', 'senha123', 'Rua E, 202'),
-('Juliana Alves', 'juliana.alves@example.com', 'senha123', 'Rua F, 303'),
-('Ricardo Lima', 'ricardo.lima@example.com', 'senha123', 'Rua G, 404'),
-('Fernanda Costa', 'fernanda.costa@example.com', 'senha123', 'Rua H, 505'),
-('Lucas Ferreira', 'lucas.ferreira@example.com', 'senha123', 'Rua I, 606'),
-('Patrícia Martins', 'patricia.martins@example.com', 'senha123', 'Rua J, 707'),
-('Gabriel Almeida', 'gabriel.almeida@example.com', 'senha123', 'Rua K, 808');
+INSERT INTO usuarios (nome, email, senha, endereco, permissao_admin) VALUES 
+('admin', 'admin@gmail.com', '$2a$10$v30P8iwziPPj0rOCwz8iM.JQvsWRy3z42CRZ.KEX9b6rGbo3/VyJ2', 'Rua A, 123', 's');
 
 INSERT INTO modelosPC (nome, cpu, ram, ssd, preco) VALUES 
 ('PC Gamer Básico', 'Intel i3', 8, 256, 2500.00),
