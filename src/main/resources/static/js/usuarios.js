@@ -99,6 +99,7 @@ async function login() {
         });
 
         if (response.ok) {
+            registrarLoginLocalmente("Teste");
             alert("Login realizado com sucesso");
             window.location.href = "/pages/home";
         } else {
@@ -133,6 +134,7 @@ async function fazerCadastro() {
             });
 
             if (response.ok) {
+                registrarLoginLocalmente("Teste");
                 alert("Usuário criado com sucesso!");
                 window.location.href = "/pages/home";
             } else {
@@ -149,6 +151,5 @@ async function fazerCadastro() {
 }
 
 async function registrarLoginLocalmente(usuario){
-    console.log(usuario);
-    localStorage.setItem("login", usuario.stringify());
+    localStorage.setItem("login", JSON.stringify(usuario));
 }

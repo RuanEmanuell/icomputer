@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.daw.icomputer.model.Usuario;
 import com.daw.icomputer.repository.UsuarioRepository;
+import com.daw.icomputer.repository.VendaRepository;
 
 import java.util.Optional;
 
@@ -16,6 +17,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VendaRepository vendaRepository; 
 
     public Optional<Usuario> buscarUsuarioPorId(Integer idUsuario) {
         return usuarioRepository.findById(idUsuario);
@@ -28,12 +32,22 @@ public class UsuarioService {
     }
 
     public void deletarUsuario(Integer idUsuario) {
-        if (usuarioRepository.existsById(idUsuario)) {
-            usuarioRepository.deleteById(idUsuario);
-        } else {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(idUsuario);
+    
+        if (usuarioOpt.isEmpty()) {
             throw new RuntimeException("Usuário com ID " + idUsuario + " não encontrado");
         }
+    
+        Usuario usuario = usuarioOpt.get();
+    
+        if (!vendaRepository.findByUsuario(usuario).isEmpty()) {
+            throw new RuntimeException("Não é possível excluir o usuário com ID " + idUsuario + 
+                                       " porque existem vendas associadas a ele.");
+        }
+    
+        usuarioRepository.delete(usuario);
     }
+    
 
     public Usuario editarUsuario(Integer idUsuario, Usuario usuario) {
         return usuarioRepository.findById(idUsuario).map(usuarioExistente -> {
@@ -51,7 +65,6 @@ public class UsuarioService {
 
     public boolean checkEmailUsuarioExiste(String email){
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
-
         return usuarioOpt.isPresent();
     }
 
@@ -63,7 +76,6 @@ public class UsuarioService {
         }
 
         Usuario usuario = usuarioOpt.get();
-
         BCryptPasswordEncoder criptografar = new BCryptPasswordEncoder();
 
         return criptografar.matches(senha, usuario.getSenha());
