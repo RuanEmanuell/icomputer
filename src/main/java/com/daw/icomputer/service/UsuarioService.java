@@ -45,4 +45,16 @@ public class UsuarioService {
     public Page<Usuario> listarUsuariosPaginados(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
+
+    public boolean autenticarUsuario(String email, String senha) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+        if (usuarioOpt.isEmpty()) {
+            return false;
+        }
+
+        Usuario usuario = usuarioOpt.get();
+
+        return usuario.getSenha().equals(senha);
+    }
 }

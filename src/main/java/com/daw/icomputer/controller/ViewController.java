@@ -29,27 +29,34 @@ public class ViewController {
     @Autowired
     private VendasService vendasService;
 
-    @GetMapping("/")
+    @GetMapping("/pages/index")
     public String retornarPaginaInicial() {
-        return "index"; 
+        return "index";
     }
 
     @GetMapping("/pages/usuarios")
     public String retornarPaginaUsuarios() {
-        return "usuarios"; 
+        return "usuarios";
+    }
+
+    @GetMapping("/pages/login")
+    public String retornarPaginaLogin() {
+        return "login";
     }
 
     @GetMapping("/pages/fragment/lista-usuarios")
     public String listarUsuariosHTML(
-            @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size, 
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
         Pageable pageable = PageRequest.of(page, size).withSort(Sort.by(Sort.Order.asc("idUsuario")));
 
         Page<Usuario> pageUsuarios = usuariosService.listarUsuariosPaginados(pageable);
 
-        model.addAttribute("previousPageUrl", "/pages/fragment/lista-usuarios?page=" + (pageUsuarios.getNumber() - 1) + "&size=" + pageUsuarios.getSize());
-        model.addAttribute("nextPageUrl", "/pages/fragment/lista-usuarios?page=" + (pageUsuarios.getNumber() + 1) + "&size=" + pageUsuarios.getSize());
+        model.addAttribute("previousPageUrl", "/pages/fragment/lista-usuarios?page=" + (pageUsuarios.getNumber() - 1)
+                + "&size=" + pageUsuarios.getSize());
+        model.addAttribute("nextPageUrl", "/pages/fragment/lista-usuarios?page=" + (pageUsuarios.getNumber() + 1)
+                + "&size=" + pageUsuarios.getSize());
         model.addAttribute("pageUsuarios", pageUsuarios);
         model.addAttribute("usuarios", pageUsuarios.getContent());
         return "fragment/lista-usuarios";
@@ -57,20 +64,22 @@ public class ViewController {
 
     @GetMapping("/pages/modelos")
     public String retornarPaginaModelos() {
-        return "modelos"; 
+        return "modelos";
     }
 
     @GetMapping("/pages/fragment/lista-modelos")
     public String listarModelosHTML(
-            @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size, 
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
         Pageable pageable = PageRequest.of(page, size).withSort(Sort.by(Sort.Order.asc("idModelo")));
 
         Page<ModeloPC> pageModelos = modeloPCService.listarModelosPaginados(pageable);
 
-        model.addAttribute("previousPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() - 1) + "&size=" + pageModelos.getSize());
-        model.addAttribute("nextPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() + 1) + "&size=" + pageModelos.getSize());
+        model.addAttribute("previousPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() - 1)
+                + "&size=" + pageModelos.getSize());
+        model.addAttribute("nextPageUrl", "/pages/fragment/lista-modelos?page=" + (pageModelos.getNumber() + 1)
+                + "&size=" + pageModelos.getSize());
         model.addAttribute("pageModelos", pageModelos);
         model.addAttribute("modelos", pageModelos.getContent());
         return "fragment/lista-modelos";
@@ -78,20 +87,22 @@ public class ViewController {
 
     @GetMapping("/pages/vendas")
     public String retornarPaginaVendas() {
-        return "vendas"; 
+        return "vendas";
     }
 
     @GetMapping("/pages/fragment/lista-vendas")
     public String listarVendasHTML(
-            @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size, 
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
         Pageable pageable = PageRequest.of(page, size).withSort(Sort.by(Sort.Order.asc("idVenda")));
 
         Page<Venda> pageVendas = vendasService.listarVendasPaginadas(pageable);
 
-        model.addAttribute("previousPageUrl", "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() - 1) + "&size=" + pageVendas.getSize());
-        model.addAttribute("nextPageUrl", "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() + 1) + "&size=" + pageVendas.getSize());
+        model.addAttribute("previousPageUrl",
+                "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() - 1) + "&size=" + pageVendas.getSize());
+        model.addAttribute("nextPageUrl",
+                "/pages/fragment/lista-vendas?page=" + (pageVendas.getNumber() + 1) + "&size=" + pageVendas.getSize());
         model.addAttribute("pageVendas", pageVendas);
         model.addAttribute("vendas", pageVendas.getContent());
         return "fragment/lista-vendas";

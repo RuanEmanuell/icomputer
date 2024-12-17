@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,37 @@
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="flex flex-col items-center justify-center bg-[#2b3137]">
     <nav class="border-b-2 border-white text-white flex items-center justify-center h-18 w-full bg-gray-600">
-        <a href="/pages/usuarios" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">👨‍💼 Usuários</a>
-        <a href="/pages/modelos" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">💻 Computadores</a>
-        <a href="/pages/vendas" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🏪 Vendas</a>
+        <a href="/pages/usuarios"
+            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">👨‍💼 Usuários</a>
+        <a href="/pages/modelos"
+            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">💻 Computadores</a>
+        <a href="/pages/vendas"
+            class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🏪 Vendas</a>
+        <a href="/pages/login" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🔐
+            Login</a>
         <a href="/" class="font-bold mx-8 p-4 hover:border-2 hover:border-gray-700 rounded transition-all">🚪 Sair</a>
     </nav>
+
     <h1 class="text-3xl font-bold my-4 text-white">Sistema de Gerenciamento de Vendas 🏪</h1>
 
     <h2 class="text-xl font-bold text-white">Vendas Realizadas</h2>
-    <div id="vendas-container" class="my-2" hx-get="/pages/fragment/lista-vendas" hx-trigger="load" hx-swap="innerHTML"></div>
+    <div id="vendas-container" class="my-2" hx-get="/pages/fragment/lista-vendas" hx-trigger="load" hx-swap="innerHTML">
+    </div>
 
     <div class="flex flex-col justify-center items-center w-80 my-2">
-        <button id="addVendaButton" onclick="abrirModal('add')" class="border-2 bg-green-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
+        <button id="addVendaButton" onclick="abrirModal('add')"
+            class="border-2 bg-green-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Adicionar Venda
         </button>
-        <button id="editVendaButton" onclick="abrirModal('edit')" class="border-2 bg-yellow-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
+        <button id="editVendaButton" onclick="abrirModal('edit')"
+            class="border-2 bg-yellow-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Editar Venda
         </button>
-        <button id="deleteVendaButton" onclick="abrirModal('delete')" class="border-2 bg-red-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
+        <button id="deleteVendaButton" onclick="abrirModal('delete')"
+            class="border-2 bg-red-700 rounded p-2 my-2 w-full text-white font-bold mx-10">
             Remover Venda
         </button>
     </div>
@@ -39,10 +51,12 @@
             <input type="date" id="dataVendaInput" class="border p-2 rounded" required>
         </form>
         <div class="flex flex-row justify-center gap-4 mt-4">
-            <button onclick="adicionarVenda()" class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold">
+            <button onclick="adicionarVenda()"
+                class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold">
                 Adicionar
             </button>
-            <button onclick="fecharModal('add')" class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold">
+            <button onclick="fecharModal('add')"
+                class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold">
                 Cancelar
             </button>
         </div>
@@ -60,7 +74,8 @@
             <button onclick="editarVenda()" class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold">
                 Salvar Alterações
             </button>
-            <button onclick="fecharModal('edit')" class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold">
+            <button onclick="fecharModal('edit')"
+                class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold">
                 Cancelar
             </button>
         </div>
@@ -71,10 +86,12 @@
         <form id="deleteForm" class="flex flex-col gap-2">
             <input type="number" id="deleteIdVendaInput" placeholder="ID da Venda" class="border p-2 rounded" required>
             <div class="flex flex-row justify-center w-96 my-2">
-                <button onclick="deletarVenda()" class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold mx-10">
+                <button onclick="deletarVenda()"
+                    class="border-2 border-white bg-green-700 rounded p-2 text-white font-bold mx-10">
                     Remover
                 </button>
-                <button onclick="fecharModal('delete')" class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold mx-10">
+                <button onclick="fecharModal('delete')"
+                    class="border-2 border-white bg-red-700 rounded p-2 text-white font-bold mx-10">
                     Cancelar
                 </button>
             </div>
@@ -83,4 +100,5 @@
 
     <script src="/js/vendas.js"></script>
 </body>
+
 </html>

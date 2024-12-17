@@ -1,15 +1,15 @@
-function abrirModal(option){
+function abrirModal(option) {
     const dialog = document.querySelector("#" + option + "Modal");
     dialog.showModal();
     zerarInputs();
 }
 
-function fecharModal(option){
+function fecharModal(option) {
     const dialog = document.querySelector("#" + option + "Modal");
     dialog.close();
 }
 
-async function carregarUsuarios(){
+async function carregarUsuarios() {
     htmx.ajax('GET', 'http://localhost:8080/pages/fragment/lista-usuarios', {
         target: '#usuarios-container'
     });
@@ -78,10 +78,35 @@ async function editarUsuario() {
     await carregarUsuarios();
 }
 
-async function zerarInputs(){
+async function zerarInputs() {
     const todosInputs = document.querySelectorAll("input");
 
     todosInputs.forEach((input) => {
         input.value = "";
     })
+}
+
+async function login() {
+    const email = document.querySelector("#email").value;
+    const senha = document.querySelector("#password").value;
+
+    try {
+        const response = await fetch("http://localhost:8080/usuarios/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message);
+            window.location.href = "/pages/index";
+        } else {
+            alert("Erro: " + data.message);
+        }
+    } catch (error) {
+        console.error("Erro ao logar:", error);
+        alert("Erro ao tentar fazer login.");
+    }
 }
