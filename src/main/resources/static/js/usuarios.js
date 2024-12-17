@@ -188,3 +188,10 @@ function logoutUsuario(){
 if (window.location.pathname !== "/pages/login" && window.location.pathname !== "/pages/cadastro") {
     verificarUsuarioIsAdmin();
 }
+
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+  });
+  

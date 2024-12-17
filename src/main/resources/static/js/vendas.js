@@ -39,7 +39,7 @@ async function adicionarVenda() {
 }
 
 async function deletarVenda() {
-    const idVenda = document.querySelector("#idVendaInput").value;
+    const idVenda = document.querySelector("#deleteIdVendaInput").value;
     try {
         const response = await fetch(`http://localhost:8080/vendas/${idVenda}`, {
             method: "DELETE"
@@ -108,3 +108,10 @@ function logoutUsuario(){
 if (window.location.pathname !== "/pages/login" && window.location.pathname !== "/pages/cadastro") {
     verificarUsuarioIsAdmin();
 }
+
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+  });
+  
