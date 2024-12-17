@@ -57,9 +57,11 @@
             <input type="password" id="senhaInput" placeholder="Senha" class="border p-2 rounded" required>
             <input type="text" id="enderecoInput" placeholder="Endereço" class="border p-2 rounded" required>
             <select id="permissaoAdminInput" class="border p-2 rounded" required>
+                <option value="" disabled selected>Permissão Admin</option>
                 <option value="s">Sim</option>
                 <option value="n">Não</option>
             </select>
+            
         </form>
         <div class="flex flex-row justify-center gap-4 mt-4">
             <button onclick="adicionarUsuario()"
@@ -81,9 +83,12 @@
             <input type="email" id="editEmailInput" placeholder="Email" class="border p-2 rounded">
             <input type="text" id="editEnderecoInput" placeholder="Endereço" class="border p-2 rounded">
             <select id="editPermissaoAdminInput" class="border p-2 rounded" required>
+                <option value="" disabled selected>Permissão Admin</option>
                 <option value="s">Sim</option>
                 <option value="n">Não</option>
             </select>
+
+            
         </form>
         <div class="flex flex-row justify-center gap-4 mt-4">
             <button onclick="editarUsuario()"
