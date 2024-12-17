@@ -36,9 +36,13 @@ public class UsuarioController {
     @GetMapping("/email/{emailUsuario}")
     public ResponseEntity<Usuario> buscarUsuarioPorEmail(@PathVariable String emailUsuario) {
         return usuarioService.buscarUsuarioPorEmail(emailUsuario)
-                .map(ResponseEntity::ok) 
-                .orElseGet(() -> ResponseEntity.notFound().build()); 
+                .map(usuario -> {
+                    usuario.setSenha(""); 
+                    return ResponseEntity.ok(usuario);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    
     
 
     @PostMapping
@@ -59,19 +63,16 @@ public class UsuarioController {
 
     Usuario usuario = usuarioOpt.get();
 
-    // Pega o e-mail do usuário logado na sessão
     String emailUsuarioLogado = (String) session.getAttribute("emailUsuarioLogado");
 
     if (emailUsuarioLogado == null) {
         return ResponseEntity.status(401).body(Map.of("success", false, "message", "Usuário não autenticado."));
     }
 
-    // Deleta o usuário
     usuarioService.deletarUsuario(idUsuario);
 
-    // Se o usuário excluído é o mesmo logado, encerre a sessão
     if (usuario.getEmail().equals(emailUsuarioLogado)) {
-        session.invalidate(); // Invalida a sessão
+        session.invalidate();
         return ResponseEntity.ok(Map.of("selfDelete", true, "message", "Você excluiu sua própria conta."));
     }
 

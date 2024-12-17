@@ -52,12 +52,12 @@ function deletarUsuario() {
     .then(data => {
         if (data.selfDelete) {
             alert("Você excluiu sua própria conta. Redirecionando para a página de login...");
-            window.location.href = "/pages/login"; // Redireciona para o login
+            logoutUsuario();
         } else if (data.success) {
             alert(data.message);
-            location.reload(); // Recarrega a lista de usuários
+            location.reload(); 
         } else {
-            alert("Erro: " + data.message);
+            alert("Erro: Este usuário tem vendas associadas a ele que precisam ser apagadas primeiro.");
         }
     })
     .catch(error => {
@@ -83,6 +83,16 @@ async function editarUsuario() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
+
+        const usuarioLocal = localStorage.getItem("login");
+
+        if(usuarioLocal != null){
+            const usuario = JSON.parse(usuarioLocal);
+            if(usuario.idUsuario == idUsuario){
+                alert("Você editou sua própria conta. Voltando para a tela de login...");
+                logoutUsuario();
+            }
+        }
 
     } catch (error) {
         console.error("Erro na requisição:", error);
