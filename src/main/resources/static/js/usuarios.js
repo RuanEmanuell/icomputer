@@ -15,6 +15,11 @@ async function carregarUsuarios() {
     });
 }
 
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
 async function adicionarUsuario() {
     const nome = document.querySelector("#nomeInput").value;
     const email = document.querySelector("#emailInput").value;
@@ -76,6 +81,11 @@ async function adicionarUsuario() {
 function deletarUsuario() {
     const idUsuario = document.getElementById("deleteIdInput").value;
 
+    if (isNaN(idUsuario) || idUsuario <= 0) {
+        alert('Selecione um id válido!');
+        return;
+    }
+
     fetch(`/usuarios/${idUsuario}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -107,7 +117,12 @@ async function editarUsuario() {
     const endereco = document.querySelector("#editEnderecoInput").value;
     const permissaoAdmin = document.querySelector("#editPermissaoAdminInput").value;
 
-    if (!idUsuario || !nome || nome.length < 3) {
+    if (isNaN(idUsuario) || idUsuario <= 0) {
+        alert('Selecione um id válido!');
+        return;
+    }
+
+    if (!nome || nome.length < 3) {
         alert('Nome deve ter pelo menos 3 caracteres!');
         return;
     }
