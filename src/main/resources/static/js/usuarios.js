@@ -16,12 +16,43 @@ async function carregarUsuarios() {
 }
 
 async function adicionarUsuario() {
+    const nome = document.querySelector("#nomeInput").value;
+    const email = document.querySelector("#emailInput").value;
+    const senha = document.querySelector("#senhaInput").value;
+    const endereco = document.querySelector("#enderecoInput").value;
+    const permissaoAdmin = document.querySelector("#permissaoAdminInput").value;
+
+    if (!nome || nome.length < 3) {
+        alert('Nome deve ter pelo menos 3 caracteres!');
+        return;
+    }
+
+    if (!email || !validarEmail(email)) {
+        alert('Por favor, insira um email válido!');
+        return;
+    }
+
+    if (!senha || senha.length < 6) {
+        alert('Senha deve ter pelo menos 6 caracteres!');
+        return;
+    }
+
+    if (!endereco || endereco.length < 5) {
+        alert('Endereço deve ter pelo menos 5 caracteres!');
+        return;
+    }
+
+    if (!permissaoAdmin) {
+        alert('Selecione a permissão de administrador!');
+        return;
+    }
+
     const data = {
-        nome: document.querySelector("#nomeInput").value,
-        email: document.querySelector("#emailInput").value,
-        senha: document.querySelector("#senhaInput").value,
-        endereco: document.querySelector("#enderecoInput").value,
-        permissaoAdmin: document.querySelector("#permissaoAdminInput").value
+        nome: nome,
+        email: email,
+        senha: senha,
+        endereco: endereco,
+        permissaoAdmin: permissaoAdmin
     };
 
     try {
@@ -35,6 +66,7 @@ async function adicionarUsuario() {
 
     } catch (error) {
         console.error("Erro na requisição:", error);
+        alert("Erro ao adicionar o usuário!");
     }
 
     fecharModal('add');
@@ -70,11 +102,36 @@ function deletarUsuario() {
 
 async function editarUsuario() {
     const idUsuario = document.querySelector("#editIdInput").value;
+    const nome = document.querySelector("#editNomeInput").value;
+    const email = document.querySelector("#editEmailInput").value;
+    const endereco = document.querySelector("#editEnderecoInput").value;
+    const permissaoAdmin = document.querySelector("#editPermissaoAdminInput").value;
+
+    if (!idUsuario || !nome || nome.length < 3) {
+        alert('Nome deve ter pelo menos 3 caracteres!');
+        return;
+    }
+
+    if (!email || !validarEmail(email)) {
+        alert('Por favor, insira um email válido!');
+        return;
+    }
+
+    if (!endereco || endereco.length < 5) {
+        alert('Endereço deve ter pelo menos 5 caracteres!');
+        return;
+    }
+
+    if (!permissaoAdmin) {
+        alert('Selecione a permissão de administrador!');
+        return;
+    }
+
     const data = {
-        nome: document.querySelector("#editNomeInput").value,
-        email: document.querySelector("#editEmailInput").value,
-        endereco: document.querySelector("#editEnderecoInput").value,
-        permissaoAdmin: document.querySelector("#editPermissaoAdminInput").value
+        nome: nome,
+        email: email,
+        endereco: endereco,
+        permissaoAdmin: permissaoAdmin
     };
 
     try {
@@ -86,9 +143,9 @@ async function editarUsuario() {
 
         const usuarioLocal = localStorage.getItem("login");
 
-        if(usuarioLocal != null){
+        if (usuarioLocal != null) {
             const usuario = JSON.parse(usuarioLocal);
-            if(usuario.idUsuario == idUsuario){
+            if (usuario.idUsuario == idUsuario) {
                 alert("Você editou sua própria conta. Voltando para a tela de login...");
                 logoutUsuario();
             }
@@ -137,6 +194,27 @@ async function fazerCadastro() {
     const email = document.getElementById('emailInput').value;
     const senha = document.getElementById('senhaInput').value;
     const endereco = document.getElementById('enderecoInput').value;
+
+    if (!nome || nome.length < 3) {
+        alert('Nome deve ter pelo menos 3 caracteres!');
+        return;
+    }
+
+    if (!email || !validarEmail(email)) {
+        alert('Por favor, insira um email válido!');
+        return;
+    }
+
+    if (!senha || senha.length < 6) {
+        alert('Senha deve ter pelo menos 6 caracteres!');
+        return;
+    }
+
+    if (!endereco || endereco.length < 5) {
+        alert('Endereço deve ter pelo menos 5 caracteres!');
+        return;
+    }
+
 
     if (nome && email && senha && endereco) {
         try {

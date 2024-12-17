@@ -16,10 +16,30 @@ async function carregarVendas() {
 }
 
 async function adicionarVenda() {
+    const usuarioId = parseInt(document.querySelector("#usuarioInput").value);
+    const modeloId = parseInt(document.querySelector("#modeloInput").value);
+    const dataVenda = document.querySelector("#dataVendaInput").value;
+
+    // Verificação de campos obrigatórios
+    if (isNaN(usuarioId) || usuarioId <= 0) {
+        alert('Selecione um usuário válido!');
+        return;
+    }
+
+    if (isNaN(modeloId) || modeloId <= 0) {
+        alert('Selecione um modelo válido!');
+        return;
+    }
+
+    if (!dataVenda) {
+        alert('A data da venda é obrigatória!');
+        return;
+    }
+
     const data = {
-        usuario: { idUsuario: parseInt(document.querySelector("#usuarioInput").value) },
-        modelo: { idModelo: parseInt(document.querySelector("#modeloInput").value) },
-        dataVenda: document.querySelector("#dataVendaInput").value
+        usuario: { idUsuario: usuarioId },
+        modelo: { idModelo: modeloId },
+        dataVenda: dataVenda
     };
 
     try {
@@ -30,6 +50,7 @@ async function adicionarVenda() {
             },
             body: JSON.stringify(data)
         });
+
     } catch (error) {
         console.error("Erro na requisição:", error);
     }
@@ -54,10 +75,34 @@ async function deletarVenda() {
 
 async function editarVenda() {
     const idVenda = document.querySelector("#editIdVendaInput").value;
+    const usuarioId = parseInt(document.querySelector("#editUsuarioInput").value);
+    const modeloId = parseInt(document.querySelector("#editModeloInput").value);
+    const dataVenda = document.querySelector("#editDataVendaInput").value;
+
+    if (isNaN(idVenda) || idVenda <= 0) {
+        alert('Selecione uma venda válida!');
+        return;
+    }
+
+    if (isNaN(usuarioId) || usuarioId <= 0) {
+        alert('Selecione um usuário válido!');
+        return;
+    }
+
+    if (isNaN(modeloId) || modeloId <= 0) {
+        alert('Selecione um modelo válido!');
+        return;
+    }
+
+    if (!dataVenda) {
+        alert('A data da venda é obrigatória!');
+        return;
+    }
+
     const data = {
-        usuario: { idUsuario: parseInt(document.querySelector("#editUsuarioInput").value) },
-        modelo: { idModelo: parseInt(document.querySelector("#editModeloInput").value) },
-        dataVenda: document.querySelector("#editDataVendaInput").value
+        usuario: { idUsuario: usuarioId },
+        modelo: { idModelo: modeloId },
+        dataVenda: dataVenda
     };
 
     try {
@@ -66,6 +111,10 @@ async function editarVenda() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
+
+        if (!response.ok) {
+            alert("Erro ao editar a venda!");
+        }
     } catch (error) {
         console.error("Erro na requisição:", error);
     }
