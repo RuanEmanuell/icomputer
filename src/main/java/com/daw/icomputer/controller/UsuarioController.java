@@ -18,6 +18,8 @@ import java.util.Map;
 import com.daw.icomputer.model.Usuario;
 import com.daw.icomputer.service.UsuarioService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*")
@@ -48,9 +50,33 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{idUsuario}")
-    public void deletarUsuario(@PathVariable Integer idUsuario) {
-        usuarioService.deletarUsuario(idUsuario);
+    public ResponseEntity<?> deletarUsuario(@PathVariable Integer idUsuario, HttpSession session) {
+    Optional<Usuario> usuarioOpt = usuarioService.buscarUsuarioPorId(idUsuario);
+
+    if (usuarioOpt.isEmpty()) {
+        return ResponseEntity.status(404).body(Map.of("success", false, "message", "Usuário não encontrado."));
     }
+
+    Usuario usuario = usuarioOpt.get();
+
+    // Pega o e-mail do usuário logado na sessão
+    String emailUsuarioLogado = (String) session.getAttribute("emailUsuarioLogado");
+
+    if (emailUsuarioLogado == null) {
+        return ResponseEntity.status(401).body(Map.of("success", false, "message", "Usuário não autenticado."));
+    }
+
+    // Deleta o usuário
+    usuarioService.deletarUsuario(idUsuario);
+
+    // Se o usuário excluído é o mesmo logado, encerre a sessão
+    if (usuario.getEmail().equals(emailUsuarioLogado)) {
+        session.invalidate(); // Invalida a sessão
+        return ResponseEntity.ok(Map.of("selfDelete", true, "message", "Você excluiu sua própria conta."));
+    }
+
+    return ResponseEntity.ok(Map.of("success", true, "message", "Usuário deletado com sucesso."));
+}
 
     @PutMapping("/{idUsuario}")
     public Usuario editarUsuario(@PathVariable Integer idUsuario, @RequestBody Usuario usuario) {
@@ -58,15 +84,16 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-        String senha = credentials.get("senha");
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials, HttpSession session) {
+    String email = credentials.get("email");
+    String senha = credentials.get("senha");
 
-        if (usuarioService.autenticarUsuario(email, senha)) {
-            return ResponseEntity.ok(Map.of("success", true, "message", "Login realizado com sucesso!"));
-        } else {
-            return ResponseEntity.status(401).body(Map.of("success", false, "message", "E-mail ou senha inválidos"));
-        }
-
+    if (usuarioService.autenticarUsuario(email, senha)) {
+        session.setAttribute("emailUsuarioLogado", email); // Salva o e-mail na sessão
+        return ResponseEntity.ok(Map.of("success", true, "message", "Login realizado com sucesso!"));
+    } else {
+        return ResponseEntity.status(401).body(Map.of("success", false, "message", "E-mail ou senha inválidos"));
     }
+}
+
 }

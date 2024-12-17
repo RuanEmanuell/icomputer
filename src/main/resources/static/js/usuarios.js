@@ -41,20 +41,32 @@ async function adicionarUsuario() {
     await carregarUsuarios();
 }
 
-async function deletarUsuario() {
-    const idUsuario = document.querySelector("#deleteIdInput").value;
-    try {
-        const response = await fetch(`http://localhost:8080/usuarios/${idUsuario}`, {
-            method: "DELETE"
-        });
+function deletarUsuario() {
+    const idUsuario = document.getElementById("deleteIdInput").value;
 
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
-
-    fecharModal('delete');
-    await carregarUsuarios();
+    fetch(`/usuarios/${idUsuario}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.selfDelete) {
+            alert("Você excluiu sua própria conta. Redirecionando para a página de login...");
+            window.location.href = "/pages/login"; // Redireciona para o login
+        } else if (data.success) {
+            alert(data.message);
+            location.reload(); // Recarrega a lista de usuários
+        } else {
+            alert("Erro: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao deletar usuário:", error);
+        alert("Erro ao deletar usuário.");
+    });
 }
+
+
 
 async function editarUsuario() {
     const idUsuario = document.querySelector("#editIdInput").value;
