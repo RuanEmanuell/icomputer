@@ -3,7 +3,7 @@
 ## iComputer
     
 ### What is this? 🤔 
-Um site de gerenciamento de computadores, que inclui CRUDs para Computadores, Vendas e Usuários, bem como funções de login e criação de contas. Foi feito com HTML, CSS, Javascript, HTMX e Thymeleaf para as Views, além de Java Spring Boot e PostgreSQL no backend, e as migrações do banco de dados são feitas com Flyway.
+A computer management website, which includes CRUDs for Computers, Sales, and Users, as well as login and account creation functions. It was made with HTML, CSS, Javascript, HTMX and Thymeleaf for the Views, in addition to Java Spring Boot and PostgreSQL in the backend, and database migrations are done with Flyway.
     
 ### Where can I access it? 🖥
 You need to download the files on this repository.
@@ -55,7 +55,7 @@ You need to download the files on this repository.
     </tr></table>
     
 ### How to run 🏃
-		Configure PostgreSQL, as well as Java and Spring Boot, the way you prefer. 
+	    Configure PostgreSQL, as well as Java and Spring Boot, the way you prefer. 
         Set your database settings on 'application.properties'
         When everything is ready, go to localhost:8080 on your browser.
 		

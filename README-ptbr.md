@@ -3,7 +3,7 @@
 ## iComputer
     
 ### O que é isso? 🤔
-Uma Pokédex feita em Angular e Node.js e Express, utilizando webscrapping para obter informações de Pokémon do PokémonDB e apresentá-las ao usuário de forma fácil e interativa.
+Um site de gerenciamento de computadores, que inclui CRUDs para Computadores, Vendas e Usuários, bem como funções de login e criação de contas. Foi feito com HTML, CSS, Javascript, HTMX e Thymeleaf para as Views, além de Java Spring Boot e PostgreSQL no backend, e as migrações do banco de dados são feitas com Flyway.
 
 ### Onde posso acessá-lo? 🖥
 Você precisa baixar os arquivos desse repositório.
